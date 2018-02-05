@@ -6,8 +6,8 @@
     <meta name="copyright" content="http://www.fao.org/corp/copyright/en/" />
     <meta name="keywords" content="GSOCmap, GSP,  Map, FAO" />
     <title>GSOCmap</title>
-    <link rel="stylesheet" href="./vme.css" type="text/css" />
-    <link rel="stylesheet" href="./ol.css" type="text/css">  
+    <link rel="stylesheet" href="css/vme.css" type="text/css" />
+    <link rel="stylesheet" href="css/ol.css" type="text/css">
 
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
@@ -129,7 +129,7 @@ html {
           opacity: 0.8,
        source: new ol.source.ImageWMS({
         url: 'http://54.229.242.119/geoserver/GSOC/wms',
-        attributions : '<img src="logos/GSP.png"/> <img src="logos/ITPS.png"/>', 
+        attributions : '<img src="img/logos/GSP.png"/> <img src="img/logos/ITPS.png"/>',
         params: {
           'LAYERS': 'GSOC:GSOCmapV1.1',
           tiled: true,
@@ -170,13 +170,13 @@ html {
 	<div id="bottomBar1">
 
 	<a href="http://www.fao.org/global-soil-partnership/en/"  target="_blank">
-                <img src="logos/GSP.png" height="80"/>
+                <img src="img/logos/GSP.png" height="80"/>
                 </a>
 
 
 
                 <a href="http://www.fao.org/global-soil-partnership/intergovernmental-technical-panel-soils/en/"  target="_blank">
-                <img src="logos/ITPS.png" height="60"/>
+                <img src="img/logos/ITPS.png" height="60"/>
                 </a>
 	<a title="FAO Copyright" target="_blank" href="http://www.fao.org/contact-us/terms/en/">
 			&copy;&nbsp;FAO,
