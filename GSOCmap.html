@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="description" content="Map application to display the GSOCmap." />
+    <meta name="author-corporate" content="FAO of the UN" />
+    <meta name="copyright" content="http://www.fao.org/corp/copyright/en/" />
+    <meta name="keywords" content="GSOCmap, GSP,  Map, FAO" />
+    <title>GSOCmap</title>
+    <link rel="stylesheet" href="./vme.css" type="text/css" />
+    <link rel="stylesheet" href="./ol.css" type="text/css">  
+
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.5.0/build/ol.js"></script>
+    <link rel="shortcut icon" href="http://54.229.242.119/apps/favicon.ico" /type="image/x-icon">
+    <link rel="icon" href="http://54.229.242.119/apps/favicon.ico?v=1" />
+<style>
+      
+html {
+    position: relative;
+    height: 100%;
+}
+
+
+
+       .ol-popup {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 80px;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "X";
+      }
+    </style>
+
+  </head>
+  <body>
+	<iframe id="banner" src="banner.html" width="100%" height="75" border="0" frameborder="0" scrolling="no"></iframe>
+
+    <div id="map" style="width: 100%; height: 91%" class="map"></div>
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
+   <div id="info">&nbsp;</div>
+    <script>
+  /**
+       * Elements that make up the popup.
+       */
+      var container = document.getElementById('popup');
+      var content = document.getElementById('popup-content');
+      var closer = document.getElementById('popup-closer');
+
+
+      /**
+       * Create an overlay to anchor the popup to the map.
+       */
+      var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+        element: container,
+        autoPan: true,
+        autoPanAnimation: {
+          duration: 250
+        }
+      }));
+
+
+      /**
+       * Add a click handler to hide the popup.
+       * @return {boolean} Don't follow the href.
+       */
+      closer.onclick = function() {
+        overlay.setPosition(undefined);
+        closer.blur();
+        return false;
+      };
+
+
+      /**
+       * Create the map.
+       */
+      var layers = [
+	new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'https://ahocevar.com/geoserver/wms',
+            params: {
+              'LAYERS': 'ne:NE1_HR_LC_SR_W_DR',
+              'format': 'image/png8'
+            }
+          })
+        }),
+
+
+
+        new ol.layer.Image({
+          opacity: 0.8,
+       source: new ol.source.ImageWMS({
+        url: 'http://54.229.242.119/geoserver/GSOC/wms',
+        attributions : '<img src="logos/GSP.png"/> <img src="logos/ITPS.png"/>', 
+        params: {
+          'LAYERS': 'GSOC:GSOCmapV1.1',
+          tiled: true,
+          'format': 'image/png8'
+        }
+      })
+    })
+      ]
+;
+
+
+
+      var map = new ol.Map({
+        layers: layers,
+        overlays: [overlay],
+        target: 'map',
+        view: new ol.View({
+          projection: 'EPSG:4326',
+          center: [0, 0],
+          zoom: 2 
+        })
+      });
+
+      var wmsSource = new ol.source.ImageWMS({
+        url: 'http://54.229.242.119/geoserver/GSOC/wms',
+        params: {'LAYERS': 'GSOC:V1.1_Pyramids', 'TILED': true},
+        serverType: 'geoserver',
+        crossOrigin: 'anonymous'
+      });
+
+
+    </script>
+        <div id="legend_GF">
+        SOC Mg ha-1 <p>
+        <img src="http://54.229.242.119/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.3.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=GSOC:GSOCmapV1.1" height="400" > 
+        </div> 
+
+	<div id="bottomBar1">
+
+	<a href="http://www.fao.org/global-soil-partnership/en/"  target="_blank">
+                <img src="logos/GSP.png" height="80"/>
+                </a>
+
+
+
+                <a href="http://www.fao.org/global-soil-partnership/intergovernmental-technical-panel-soils/en/"  target="_blank">
+                <img src="logos/ITPS.png" height="60"/>
+                </a>
+	<a title="FAO Copyright" target="_blank" href="http://www.fao.org/contact-us/terms/en/">
+			&copy;&nbsp;FAO,
+			<span id="copyYear">2017</span>
+			&nbsp;
+		</a>
+	</div> 
+ </body>
+</html>
