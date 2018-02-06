@@ -75,18 +75,20 @@ $(function() {
       var parser = new ol.format.GeoJSON()
       var feature = parser.readFeatures(response)[0]
 
-      // The webservice uses GRAY_INDEX as the SOC value
-      var soc = feature.get('GRAY_INDEX').toFixed(1)
+      if (feature) {
+        // The webservice uses GRAY_INDEX as the SOC value
+        var soc = feature.get('GRAY_INDEX').toFixed(1)
 
-      // Generate the popup content
-      $('#popup-content').html(
-        '<p><b>SOC</b> '
+        var content = '<p><b>SOC</b> '
           + soc
           + ' <em>Mg ha-1</em></p>'
-      )
 
-      // Show popup pointing at clicked coordinates
-      popupOverlay.setPosition(coordinate)
+        // Generate the popup content
+        $('#popup-content').html(content)
+
+        // Show popup pointing at clicked coordinate
+        popupOverlay.setPosition(coordinate)
+      }
     })
   })
 
