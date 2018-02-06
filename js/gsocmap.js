@@ -18,13 +18,12 @@ var gsocData = new ol.layer.Image({
     url: 'http://54.229.242.119/geoserver/GSOC/wms',
     attributions : '<img src="img/logos/GSP.png"/> <img src="img/logos/ITPS.png"/>',
     params: {
-      'LAYERS': 'GSOC:GSOCmapV1.1',
+      'LAYERS': 'GSOC:GSOCmapV1.2.0',
       tiled: true,
       'format': 'image/png8'
     }
   })
 })
-
 
 $(function() {
   // Popup overlay
