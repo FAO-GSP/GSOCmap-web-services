@@ -25,6 +25,17 @@ var gsocData = new ol.layer.Image({
   })
 })
 
+// Map view object
+var view = new ol.View({
+  projection: 'EPSG:4326',
+  center: [0, 0],
+  zoom: 2
+})
+
+// Current view params for querying features
+var viewProjection = view.getProjection()
+var viewResolution = view.getResolution()
+
 $(function() {
   // Popup overlay
   //
@@ -42,20 +53,41 @@ $(function() {
     layers: [tiles, gsocData],
     overlays: [popupOverlay],
     target: 'map',
-    view: new ol.View({
-      projection: 'EPSG:4326',
-      center: [0, 0],
-      zoom: 2
-    })
+    view: view
   })
 
   // Click handler to render the popup.
   map.on('singleclick', function(e) {
     var coordinate = e.coordinate;
 
-    $('#popup-content').html('<code>' + coordinate +'</code>')
+    // Get the url for querying `GetFeatureInfo`
+    var url = gsocData.getSource().getGetFeatureInfoUrl(
+      coordinate, viewResolution, viewProjection, {
+        'INFO_FORMAT': 'application/json'
+      }
+    )
 
-    popupOverlay.setPosition(coordinate)
+    $.ajax({
+      url: url,
+      dataType: 'json'
+    }).done(function(response) {
+      // Parse and extract the first GeoJSON feature
+      var parser = new ol.format.GeoJSON()
+      var feature = parser.readFeatures(response)[0]
+
+      // The webservice uses GRAY_INDEX as the SOC value
+      var soc = feature.get('GRAY_INDEX').toFixed(1)
+
+      // Generate the popup content
+      $('#popup-content').html(
+        '<p><b>SOC</b> '
+          + soc
+          + ' <em>Mg ha-1</em></p>'
+      )
+
+      // Show popup pointing at clicked coordinates
+      popupOverlay.setPosition(coordinate)
+    })
   })
 
   // Click handler for the Button that closes the popup.
