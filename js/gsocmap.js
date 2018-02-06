@@ -25,6 +25,7 @@ var gsocData = new ol.layer.Image({
   })
 })
 
+
 $(function() {
   // Popup overlay
   //
@@ -53,20 +54,18 @@ $(function() {
   map.on('singleclick', function(e) {
     var coordinate = e.coordinate;
 
-    console.log(e)
-
-    $('#popup-content').html('<em>some data</em>')
+    $('#popup-content').html('<code>' + coordinate +'</code>')
 
     popupOverlay.setPosition(coordinate)
   })
 
   // Click handler for the Button that closes the popup.
-  $(document).on('click', '#popup-closer', function() {
+  $('#popup-closer').on('click', function() {
+    // Remove overlay from map
     popupOverlay.setPosition(undefined)
 
-    console.log(this)
-
-    // popupCloser.blur()
+    // Remove focus on button
+    this.blur()
 
     // Don't follow the href on tag.
     return false
