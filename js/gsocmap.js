@@ -1,31 +1,31 @@
+// Map layers
+//
+// Tile layer
+var tiles = new ol.layer.Tile({
+  source: new ol.source.TileWMS({
+    url: 'https://ahocevar.com/geoserver/wms',
+    params: {
+      'LAYERS': 'ne:NE1_HR_LC_SR_W_DR',
+      'format': 'image/png8'
+    }
+  })
+})
+
+// GSOC data layer
+var gsocData = new ol.layer.Image({
+  opacity: 0.8,
+  source: new ol.source.ImageWMS({
+    url: 'http://54.229.242.119/geoserver/GSOC/wms',
+    attributions : '<img src="img/logos/GSP.png"/> <img src="img/logos/ITPS.png"/>',
+    params: {
+      'LAYERS': 'GSOC:GSOCmapV1.1',
+      tiled: true,
+      'format': 'image/png8'
+    }
+  })
+})
+
 $(function() {
-  // Map layers
-  //
-  // Tile layer
-  var tiles = new ol.layer.Tile({
-    source: new ol.source.TileWMS({
-      url: 'https://ahocevar.com/geoserver/wms',
-      params: {
-        'LAYERS': 'ne:NE1_HR_LC_SR_W_DR',
-        'format': 'image/png8'
-      }
-    })
-  })
-
-  // GSOC data layer
-  var gsocData = new ol.layer.Image({
-    opacity: 0.8,
-    source: new ol.source.ImageWMS({
-      url: 'http://54.229.242.119/geoserver/GSOC/wms',
-      attributions : '<img src="img/logos/GSP.png"/> <img src="img/logos/ITPS.png"/>',
-      params: {
-        'LAYERS': 'GSOC:GSOCmapV1.1',
-        tiled: true,
-        'format': 'image/png8'
-      }
-    })
-  })
-
   // Popup overlay
   //
   // Create an overlay to anchor the popup to the map.
@@ -35,17 +35,6 @@ $(function() {
     autoPanAnimation: {
       duration: 250
     }
-  })
-
-  // Button that closes the popup.
-  var popupCloser = $('#popup-closer')
-
-  popupCloser.on('click', function() {
-    popupOverlay.setPosition(undefined)
-    popupCloser.blur()
-
-    // Don't follow the href on tag.
-    return false
   })
 
   // The map with every component.
@@ -66,8 +55,20 @@ $(function() {
 
     console.log(e)
 
-    $('#popup-content').html('<p>sarasa:</p>')
+    $('#popup-content').html('<em>some data</em>')
 
     popupOverlay.setPosition(coordinate)
+  })
+
+  // Click handler for the Button that closes the popup.
+  $(document).on('click', '#popup-closer', function() {
+    popupOverlay.setPosition(undefined)
+
+    console.log(this)
+
+    // popupCloser.blur()
+
+    // Don't follow the href on tag.
+    return false
   })
 })
