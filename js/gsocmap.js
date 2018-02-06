@@ -15,7 +15,7 @@ var tiles = new ol.layer.Tile({
 var gsocData = new ol.layer.Image({
   opacity: 0.8,
   source: new ol.source.ImageWMS({
-    url: 'http://54.229.242.119/geoserver/GSOC/wms',
+    url: '/geoserver/GSOC/wms',
     attributions : '<img src="img/logos/GSP.png"/> <img src="img/logos/ITPS.png"/>',
     params: {
       'LAYERS': 'GSOC:GSOCmapV1.2.0',
