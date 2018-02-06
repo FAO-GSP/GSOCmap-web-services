@@ -1,29 +1,5 @@
-// FIXME Clean up popup related code
 $(function() {
-  // Elements that make up the popup.
-  var container = document.getElementById('popup');
-  var content = document.getElementById('popup-content');
-  var closer = document.getElementById('popup-closer');
-
-  // Create an overlay to anchor the popup to the map.
-  var overlay = new ol.Overlay({
-    element: container,
-    autoPan: true,
-    autoPanAnimation: {
-      duration: 250
-    }
-  });
-
-  // Add a click handler to hide the popup.
-  // @return {boolean} Don't follow the href.
-  closer.onclick = function() {
-    overlay.setPosition(undefined);
-    closer.blur();
-    return false;
-  };
-
-
-  // Create the map.
+  // Layers
   var layers = [
     new ol.layer.Tile({
       source: new ol.source.TileWMS({
@@ -49,21 +25,37 @@ $(function() {
     })
   ];
 
+  // Popup overlay
+
+  // Create an overlay to anchor the popup to the map.
+  var popupOverlay = new ol.Overlay({
+    element: $('#popup')[0],
+    autoPan: true,
+    autoPanAnimation: {
+      duration: 250
+    }
+  });
+
+  // Button that closes the popup
+  var popupCloser = $('#popup-closer');
+
+  popupCloser.on('click', function() {
+    popupOverlay.setPosition(undefined);
+    popupCloser.blur();
+
+    // Don't follow the href on tag.
+    return false;
+  });
+
+  // The map with every component
   var map = new ol.Map({
     layers: layers,
-    overlays: [overlay],
+    overlays: [popupOverlay],
     target: 'map',
     view: new ol.View({
       projection: 'EPSG:4326',
       center: [0, 0],
       zoom: 2
     })
-  });
-
-  var wmsSource = new ol.source.ImageWMS({
-    url: 'http://54.229.242.119/geoserver/GSOC/wms',
-    params: { 'LAYERS': 'GSOC:V1.1_Pyramids', 'TILED': true },
-    serverType: 'geoserver',
-    crossOrigin: 'anonymous'
   });
 });
