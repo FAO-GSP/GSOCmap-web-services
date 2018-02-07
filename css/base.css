@@ -18,5 +18,5 @@ html {
 
 /* Make the modal cover everything */
 .blocker {
-  z-index: 1001;
+  z-index: 6001;
 }
