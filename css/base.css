@@ -4,7 +4,19 @@ html {
   height: 100%;
 }
 
-/* Close modal button */
-.dont_show_again {
-  width: 100%;
+/* Welcome modal styling */
+.modal-copyright {
+  text-align: center;
+  border-top: 1px solid #bbb;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+.modal-dismiss {
+  text-align: right;
+}
+
+/* Make the modal cover everything */
+.blocker {
+  z-index: 1001;
 }
