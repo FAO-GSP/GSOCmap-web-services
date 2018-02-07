@@ -39,7 +39,7 @@ var viewResolution = view.getResolution()
 $(function() {
   // Popup overlay
   //
-  // Create an overlay to anchor the popup to the map.
+  // Create an overlay to anchor the popup to the map
   var popupOverlay = new ol.Overlay({
     element: $('#popup')[0],
     autoPan: true,
@@ -48,7 +48,7 @@ $(function() {
     }
   })
 
-  // The map with every component.
+  // The map with every component
   var map = new ol.Map({
     layers: [tiles, gsocData],
     overlays: [popupOverlay],
@@ -56,21 +56,18 @@ $(function() {
     view: view
   })
 
-  // Click handler to render the popup.
+  // Click handler to render the popup
   map.on('singleclick', function(e) {
     var coordinate = e.coordinate;
 
-    // Get the url for querying `GetFeatureInfo`
+    // Get the url for querying `GetFeatureInfo` on the data layer
     var url = gsocData.getSource().getGetFeatureInfoUrl(
       coordinate, viewResolution, viewProjection, {
         'INFO_FORMAT': 'application/json'
       }
     )
 
-    $.ajax({
-      url: url,
-      dataType: 'json'
-    }).done(function(response) {
+    $.getJSON(url).done(function(response) {
       // Parse and extract the first GeoJSON feature
       var parser = new ol.format.GeoJSON()
       var feature = parser.readFeatures(response)[0]
@@ -92,7 +89,7 @@ $(function() {
     })
   })
 
-  // Click handler for the Button that closes the popup.
+  // Click handler for the Button that closes the popup
   $('#popup-closer').on('click', function() {
     // Remove overlay from map
     popupOverlay.setPosition(undefined)
@@ -100,7 +97,7 @@ $(function() {
     // Remove focus on button
     this.blur()
 
-    // Don't follow the href on tag.
+    // Don't follow the href on tag
     return false
   })
 })
