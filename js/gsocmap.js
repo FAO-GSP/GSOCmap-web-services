@@ -95,6 +95,46 @@ $(function() {
     })
   })
 
+  map.on('moveend', function(e){
+    // Get bounding box for current view
+    var bbox = e.map.getView().calculateExtent()
+
+    // Construct an XML feature request by WFS standards
+    var featureRequest = new ol.format.WFS().writeGetFeature({
+      // FIXME Use correct geoserver url
+      featureNS: 'http://54.229.242.119/',
+      featurePrefix: 'gsoc',
+      // Layer name without workspace
+      featureTypes: ['metadata'],
+      outputFormat: 'application/json',
+      geometryName: 'geom',
+      bbox: bbox,
+      propertyNames: ['iso']
+    })
+
+    // Send the request and parse it
+    fetch('/geoserver/GSOC/wms', {
+      method: 'POST',
+      body: new XMLSerializer().serializeToString(featureRequest)
+    }).then(function(response) {
+      return response.json()
+    }).then(function(geojson) {
+      var features = new ol.format.GeoJSON().readFeatures(geojson)
+      var attribution = ''
+
+      // If there are between 10 and 1 contributors, list them.
+      if (geojson.totalFeatures > 10) {
+        attribution = 'There are ' + geojson.totalFeatures + ' contributors for the current view.'
+      } else if (geojson.totalFeatures > 0) {
+        var contributors = features.map(feature => feature.get('iso'))
+
+        attribution = 'With contributions from ' + contributors.join(', ') + '.'
+      }
+
+      $('.gsoc-attribution').html(attribution)
+    })
+  })
+
   // Fit view to full map size
   view.fit(extent, { constrainResolution: false })
 
