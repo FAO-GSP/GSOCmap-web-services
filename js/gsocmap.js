@@ -29,7 +29,8 @@ var gsocData = new ol.layer.Image({
 var view = new ol.View({
   projection: 'EPSG:4326',
   center: [0, 0],
-  zoom: 2
+  zoom: 2,
+  minZoom: 2
 })
 
 // Current view params for querying features
