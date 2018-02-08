@@ -97,6 +97,7 @@ $(function() {
 
   map.on('moveend', function(e){
     // Get bounding box for current view
+    // FIXME It's giving wrong or moved metadata
     var bbox = e.map.getView().calculateExtent()
 
     // Construct an XML feature request by WFS standards
