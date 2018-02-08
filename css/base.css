@@ -9,6 +9,17 @@ html {
   height: 91%;
 }
 
+.gsoc-attribution {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+}
+
+.copyright {
+  /* FIXME More centered */
+  vertical-align: top;
+}
+
 /* Welcome modal styling */
 .modal-copyright {
   text-align: center;

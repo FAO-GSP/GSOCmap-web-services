@@ -95,6 +95,13 @@ $(function() {
     })
   })
 
+  map.on('moveend', function(e){
+    // Get bounding box for current view
+    var bbox = e.map.getView().calculateExtent()
+
+    $('.gsoc-attribution').html('['+bbox[0]+', '+bbox[1]+', '+bbox[2]+', '+bbox[3]+']')
+  })
+
   // Fit view to full map size
   var res = view.getResolutionForExtent(extent, map.getSize())
   view.setResolution(res)
