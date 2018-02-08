@@ -19,7 +19,6 @@ var gsocData = new ol.layer.Image({
   opacity: 0.8,
   source: new ol.source.ImageWMS({
     url: '/geoserver/GSOC/wms',
-    attributions : '<img src="img/logos/GSP.png"/> <img src="img/logos/ITPS.png"/>',
     params: {
       'LAYERS': 'GSOC:GSOCmapV1.2.0',
       tiled: true,
@@ -51,6 +50,10 @@ $(function() {
   var map = new ol.Map({
     layers: [tiles, gsocData],
     overlays: [popupOverlay],
+    controls: [
+      new ol.control.Zoom,
+      new ol.control.FullScreen
+    ],
     target: 'map',
     view: view
   })
