@@ -32,17 +32,6 @@ ul, li { list-style-type: none; }
 .page_e_M { background-color: #fff; background-image: none; height: 140px; width: 720px; z-index: 1; }
 .page_e_L { background-color: #fff; background-image: none; height: 110px; width: 962px; z-index: 1; }
 
-/* ------------------ */
-/*      MAP CSS       */
-/* ------------------ */
-#map { clear: both; height: 250%; left: 20px; width: 100%; }
-.map {
-  height: 200%;
-  width: 100%;
-  background: url(map-background.jpg) repeat;
-  margin-bottom: 10px;
-}
-
 .map_e_M { clear: both; height: 50%; left: 20px; width: 720px; }
 .map_e_L { clear: both; height: 50%; left: 20px; width: 962px; }
 
