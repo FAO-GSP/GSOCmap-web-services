@@ -96,8 +96,7 @@ $(function() {
   })
 
   // Fit view to full map size
-  var res = view.getResolutionForExtent(extent, map.getSize())
-  view.setResolution(res)
+  view.fit(extent, { constrainResolution: false })
 
   // Click handler for the Button that closes the popup
   $('#popup-closer').on('click', function() {
