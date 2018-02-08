@@ -1,3 +1,6 @@
+// Initial map view
+var extent = [-180, -70.91725171499999, 180.008331893, 83.616081]
+
 // Map layers
 //
 // Tile layer
@@ -29,13 +32,8 @@ var gsocData = new ol.layer.Image({
 var view = new ol.View({
   projection: 'EPSG:4326',
   center: [0, 0],
-  zoom: 2,
   minZoom: 2
 })
-
-// Current view params for querying features
-var viewProjection = view.getProjection()
-var viewResolution = view.getResolution()
 
 $(function() {
   // Popup overlay
@@ -60,6 +58,10 @@ $(function() {
   // Click handler to render the popup
   map.on('singleclick', function(e) {
     var coordinate = e.coordinate;
+
+    // Current view params for querying features
+    var viewProjection = view.getProjection()
+    var viewResolution = view.getResolution()
 
     // Get the url for querying `GetFeatureInfo` on the data layer
     var url = gsocData.getSource().getGetFeatureInfoUrl(
@@ -89,6 +91,10 @@ $(function() {
       }
     })
   })
+
+  // Fit view to full map size
+  var res = view.getResolutionForExtent(extent, map.getSize())
+  view.setResolution(res)
 
   // Click handler for the Button that closes the popup
   $('#popup-closer').on('click', function() {
