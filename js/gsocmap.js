@@ -6,9 +6,9 @@ var extent = [-180, -70.91725171499999, 180.008331893, 83.616081]
 // Tile layer
 var tiles = new ol.layer.Tile({
   source: new ol.source.TileWMS({
-    url: 'https://ahocevar.com/geoserver/wms',
+    url: '/geoserver/GSOC/wms',
     params: {
-      'LAYERS': 'ne:NE1_HR_LC_SR_W_DR',
+      'LAYERS': 'GSOC:NE2',
       'format': 'image/png8'
     }
   })
