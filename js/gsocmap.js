@@ -99,6 +99,20 @@ $(function() {
     // Get bounding box for current view
     var bbox = e.map.getView().calculateExtent()
 
+    var featureRequest = new ol.format.WFS().writeGetFeature({
+      featureNS: 'something.org',
+      featurePrefix: 'gsoc',
+      featureTypes: ['GSOC:metadata'],
+      outputFormat: 'application/json'
+    })
+
+    fetch('/geoserver/GSOC/wms', {
+      method: 'POST',
+      body: new XMLSerializer().serializeToString(featureRequest)
+    }).then(function(response) {
+      console.log(response)
+    })
+
     $('.gsoc-attribution').html('['+bbox[0]+', '+bbox[1]+', '+bbox[2]+', '+bbox[3]+']')
   })
 
