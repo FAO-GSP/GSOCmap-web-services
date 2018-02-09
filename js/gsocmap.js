@@ -97,8 +97,9 @@ $(function() {
 
   map.on('moveend', function(e){
     // Get bounding box for current view
-    // FIXME It's giving wrong or moved metadata
     var bbox = e.map.getView().calculateExtent()
+    // The metadata field used to specify a contributor
+    var contributorId = 'metadata_full_institution'
 
     // Construct an XML feature request by WFS standards
     var featureRequest = new ol.format.WFS().writeGetFeature({
@@ -111,7 +112,7 @@ $(function() {
       geometryName: 'geom',
       bbox: bbox,
       srsName: 'EPSG:4326',
-      propertyNames: ['iso']
+      propertyNames: [contributorId, 'iso']
     })
 
     // Send the request and parse it
@@ -124,13 +125,30 @@ $(function() {
       var features = new ol.format.GeoJSON().readFeatures(geojson)
       var attribution = ''
 
-      // If there are between 10 and 1 contributors, list them.
-      if (geojson.totalFeatures > 10) {
+      // If there are between 4 and 1 contributors, list them.
+      if (geojson.totalFeatures > 4) {
         attribution = 'There are ' + geojson.totalFeatures + ' contributors for the current view.'
       } else if (geojson.totalFeatures > 0) {
-        var contributors = features.map(feature => feature.get('iso'))
+        // Accumulate ISOs by the same contributor
+        reducer = (hash, feature) => {
+          key = feature.get(contributorId)
 
-        attribution = 'With contributions from ' + contributors.join(', ') + '.'
+          if (!(hash[key] instanceof Array)) {
+            hash[key] = []
+          }
+
+          hash[key].push(feature.get('iso'))
+          return hash
+        }
+
+        var contributors = features.reduce(reducer, {})
+
+        // Generate formatted strings such as: contributor (ISO, ISO)
+        var formattedContributors = Object.keys(contributors).map(function(key) {
+          return key + ' (' + contributors[key].join(', ') + ')'
+        })
+
+        attribution = 'With contributions from ' + formattedContributors.join(', ') + '.'
       }
 
       $('.gsoc-attribution').html(attribution)
