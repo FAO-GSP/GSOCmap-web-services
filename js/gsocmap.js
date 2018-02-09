@@ -50,13 +50,27 @@ $(function() {
   var map = new ol.Map({
     layers: [tiles, gsocData],
     overlays: [popupOverlay],
-    controls: [
-      new ol.control.Zoom,
-      new ol.control.FullScreen
-    ],
+    controls: ol.control.defaults({
+      attribution: false
+    }),
     target: 'map',
     view: view
   })
+
+  // Interaction used to select features by drawing boxes
+  var dragBox = new ol.interaction.DragBox({
+    // Ctrl + Drag
+    condition: ol.events.condition.platformModifierKeyOnly
+  })
+
+  dragBox.on('boxend', function(e) {
+    var bbox = dragBox.getGeometry().getExtent()
+
+    console.log('Dragbox: ' + bbox.join(', '))
+  })
+
+  // Add interactions to the current set
+  map.addInteraction(dragBox)
 
   // Click handler to render the popup
   map.on('singleclick', function(e) {

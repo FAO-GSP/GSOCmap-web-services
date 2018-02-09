@@ -45,3 +45,9 @@ html {
 .blocker {
   z-index: 6001;
 }
+
+/* A color for DragBox select, different to DragZoom */
+.ol-dragbox {
+  background-color: rgba(15, 109, 173, 0.1);
+  border-color: rgba(15, 109, 173, 1);
+}
