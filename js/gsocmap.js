@@ -110,6 +110,7 @@ $(function() {
       outputFormat: 'application/json',
       geometryName: 'geom',
       bbox: bbox,
+      srsName: 'EPSG:4326',
       propertyNames: ['iso']
     })
 
