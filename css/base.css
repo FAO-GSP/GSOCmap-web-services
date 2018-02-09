@@ -6,18 +6,27 @@ html {
 
 #map {
   width: 100%;
-  height: 91%;
+  height: 92%;
 }
 
 .gsoc-attribution {
+  width: 100%;
+  height: 25px;
+
+  /* Similar color to the images from header */
+  background: rgb(15, 109, 173); /* Fall-back in case rgba isn't supported */
+  background: rgba(15, 109, 173, .5);
+
   position: absolute;
   bottom: 0;
-  right: 1rem;
+
+  font-size: small;
+  line-height: 2;
 }
 
-.copyright {
-  /* FIXME More centered */
-  vertical-align: top;
+/* Reposition bottom bar just above attributions */
+#bottomBar1, #legend_GF {
+  bottom: 30px;
 }
 
 /* Welcome modal styling */
