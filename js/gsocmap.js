@@ -98,6 +98,10 @@ $(function() {
   map.on('moveend', function(e){
     // Get bounding box for current view
     var bbox = e.map.getView().calculateExtent()
+
+    // TODO Remove after fixing contributors
+    console.log(bbox.join(', '))
+
     // The metadata field used to specify a contributor
     var contributorId = 'metadata_full_institution'
 
@@ -125,8 +129,8 @@ $(function() {
       var features = new ol.format.GeoJSON().readFeatures(geojson)
       var attribution = ''
 
-      // If there are between 4 and 1 contributors, list them.
-      if (geojson.totalFeatures > 4) {
+      // If there are between 6 and 1 contributors, list them.
+      if (geojson.totalFeatures > 6) {
         attribution = 'There are ' + geojson.totalFeatures + ' contributors for the current view.'
       } else if (geojson.totalFeatures > 0) {
         // Accumulate ISOs by the same contributor
