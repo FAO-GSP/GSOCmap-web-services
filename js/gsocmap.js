@@ -20,9 +20,9 @@ var gsocData = new ol.layer.Image({
   source: new ol.source.ImageWMS({
     url: '/geoserver/GSOC/wms',
     params: {
-      'LAYERS': 'GSOC:GSOCmapV1.2.0',
+      layers: 'GSOC:GSOCmapV1.2.0',
       tiled: true,
-      'format': 'image/png8'
+      format: 'image/png8'
     }
   })
 })
