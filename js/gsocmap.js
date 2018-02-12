@@ -113,6 +113,9 @@ $(function() {
     // Get bounding box for current view
     var bbox = e.map.getView().calculateExtent()
 
+    // Add CRS for query
+    bbox.push('EPSG:4326')
+
     // TODO Remove after fixing contributors
     console.log(bbox.join(', '))
 
