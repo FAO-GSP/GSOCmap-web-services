@@ -7,11 +7,13 @@ html {
 #content {
   height: 100%;
   margin-top: 75px;
+  background-color: rgb(15, 109, 173);
 }
 
 #map {
   width: 100%;
   height: 100%;
+  background-color: transparent;
 }
 
 .gsoc-attribution {
@@ -55,4 +57,25 @@ html {
 .ol-dragbox {
   background-color: rgba(15, 109, 173, 0.1);
   border-color: rgba(15, 109, 173, 1);
+}
+
+/* VME styles fixes */
+#pageBannerDownload {
+  height: 75px;
+}
+
+#pageBanner h2 {
+  top: 5px;
+}
+
+#pageBanner h4 {
+  top: 32px;
+}
+
+#pageBanner .contributors {
+  position: absolute;
+  font-size: 11px;
+  color: #74beef;
+  left: 400px;
+  top: 47px;
 }

@@ -44,82 +44,80 @@
         <img src="img/banner-download.jpg" alt="" />
       </a>
 
-      <div id="pageBannerPattern"> </div>
-
       <a id="pageBannerFAO" href="http://www.fao.org/">
         <img src="img/banner-fao.png" alt="" />
       </a>
 
       <h2>GLOSIS - GSOCmap V1.0</h2>
 
-      <h4>A country-driven approach to map the global soil organic carbon stock.
-        <a href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/gsocmap-contributors/en/">GSOCmap contributors</a>
-      </h4>
+      <h4>A country-driven approach to map the global soil organic carbon stock.</h4>
+      <a class="contributors" href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/gsocmap-contributors/en/">GSOCmap contributors</a>
+
     </div>
 
     <div id="content">
       <div id="map" class="map"></div>
-
-      <div id="popup" class="ol-popup">
-        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-        <div id="popup-content"></div>
-      </div>
-
-      <div id="welcome" class="modal">
-        <p><b>This interactive map allows you to explore the GSOCmap.</b></p>
-
-        <p>
-          This map provides users with very useful information to monitor the
-          soil condition, identify degraded areas, set restoration targets,
-          explore SOC sequestration potentials, support the greenhouse gas
-          emission reporting under the UNFCCC and make evidence based decisions
-          to mitigate and adapt to a changing climate.
-        </p>
-
-        <div class="modal-footer">
-          <div class="modal-links">
-            <a href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/en">Home</a>
-            <span>&nbsp;|&nbsp;</span>
-            <a href="http://www.fao.org/documents/card/en/c/fb798a4c-ff06-4468-ad18-27787d1f3456">Leaflet</a>
-            <span>&nbsp;|&nbsp;</span>
-            <a href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/gsocmap-contributors/en">Contributors</a>
-          </div>
-
-          <div class="modal-copyright">
-            &copy; FAO, 2018
-          </div>
-
-          <div class="modal-dismiss">
-            <a href="#welcome" rel="modal:close">Close</a>
-          </div>
-        </div>
-      </div>
-
-      <div id="legend_GF">
-        <p>SOC Mg ha-1</p>
-        <img
-          height="400"
-          src="/geoserver/wms?request=GetLegendGraphic&version=1.3.0&format=image/png&width=20&height=20&layer=GSOC:GSOCmapV1.2.0&transparent=true"
-        />
-      </div>
-
-      <div id="bottomBar1">
-        <a href="http://www.fao.org/global-soil-partnership/en/"  target="_blank">
-          <img src="img/logos/GSP.png" height="80"/>
-        </a>
-
-        <a href="http://www.fao.org/global-soil-partnership/intergovernmental-technical-panel-soils/en/"  target="_blank">
-          <img src="img/logos/ITPS.png" height="60"/>
-        </a>
-
-        <a class="copyright" title="FAO Copyright" target="_blank" href="http://www.fao.org/contact-us/terms/en/">
-          &copy;&nbsp;FAO,
-          <span id="copyYear">2018</span>
-          &nbsp;
-        </a>
-      </div>
-
-      <div class="gsoc-attribution"></div>
     </div>
+
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
+
+     <div id="welcome" class="modal">
+       <p><b>This interactive map allows you to explore the GSOCmap.</b></p>
+
+       <p>
+         This map provides users with very useful information to monitor the
+         soil condition, identify degraded areas, set restoration targets,
+         explore SOC sequestration potentials, support the greenhouse gas
+         emission reporting under the UNFCCC and make evidence based decisions
+         to mitigate and adapt to a changing climate.
+       </p>
+
+       <div class="modal-footer">
+         <div class="modal-links">
+           <a href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/en">Home</a>
+           <span>&nbsp;|&nbsp;</span>
+           <a href="http://www.fao.org/documents/card/en/c/fb798a4c-ff06-4468-ad18-27787d1f3456">Leaflet</a>
+           <span>&nbsp;|&nbsp;</span>
+           <a href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/gsocmap-contributors/en">Contributors</a>
+         </div>
+
+         <div class="modal-copyright">
+           &copy; FAO, 2018
+         </div>
+
+         <div class="modal-dismiss">
+           <a href="#welcome" rel="modal:close">Close</a>
+         </div>
+       </div>
+     </div>
+
+     <div id="legend_GF">
+       <p>SOC Mg ha-1</p>
+       <img
+         height="400"
+         src="/geoserver/wms?request=GetLegendGraphic&version=1.3.0&format=image/png&width=20&height=20&layer=GSOC:GSOCmapV1.2.0&transparent=true"
+       />
+     </div>
+
+     <div id="bottomBar1">
+       <a href="http://www.fao.org/global-soil-partnership/en/"  target="_blank">
+         <img src="img/logos/GSP.png" height="80"/>
+       </a>
+
+       <a href="http://www.fao.org/global-soil-partnership/intergovernmental-technical-panel-soils/en/"  target="_blank">
+         <img src="img/logos/ITPS.png" height="60"/>
+       </a>
+
+       <a class="copyright" title="FAO Copyright" target="_blank" href="http://www.fao.org/contact-us/terms/en/">
+         &copy;&nbsp;FAO,
+         <span id="copyYear">2018</span>
+         &nbsp;
+       </a>
+     </div>
+
+     <div class="gsoc-attribution"></div>
   </body>
 </html>
