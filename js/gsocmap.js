@@ -1,5 +1,5 @@
 // Initial map view
-var extent = [-180, -70.91725171499999, 180.008331893, 83.616081]
+var extent = [-180, -65, 180, 55]
 
 // Map layers
 //
@@ -31,6 +31,7 @@ var gsocData = new ol.layer.Image({
 var view = new ol.View({
   projection: 'EPSG:4326',
   center: [0, 0],
+  extent: extent,
   minZoom: 2
 })
 
