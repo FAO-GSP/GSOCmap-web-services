@@ -32,8 +32,7 @@ var gsocData = new ol.layer.Image({
 var view = new ol.View({
   projection: 'EPSG:4326',
   center: [0, 0],
-  extent: extent,
-  minZoom: 2.5
+  minZoom: 2
 })
 
 $(function() {
