@@ -1,0 +1,17 @@
+/* Map styling */
+
+/* Move zoom controls to the right */
+.ol-zoom {
+  right: 0.5em;
+  left: auto;
+}
+
+/* A color for DragBox select, different to DragZoom */
+.ol-dragbox {
+  background-color: rgba(15, 109, 173, 0.1);
+  border-color: rgba(15, 109, 173, 1);
+}
+
+.ol-dragzoom {
+  background-color: rgba(0, 60, 136, .1);
+}

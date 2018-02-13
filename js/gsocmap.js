@@ -20,7 +20,8 @@ var gsocData = new ol.layer.Image({
   source: new ol.source.ImageWMS({
     url: '/geoserver/GSOC/wms',
     params: {
-      layers: 'GSOC:GSOCmapV1.2.0',
+      // It has to be uppercase for WFS
+      'LAYERS': 'GSOC:GSOCmapV1.2.0',
       tiled: true,
       format: 'image/png8'
     }
@@ -32,7 +33,7 @@ var view = new ol.View({
   projection: 'EPSG:4326',
   center: [0, 0],
   extent: extent,
-  minZoom: 2
+  minZoom: 2.5
 })
 
 $(function() {

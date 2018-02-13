@@ -1,5 +1,8 @@
 html, body {
   height: 100%;
+  /* Prevent scrolling */
+  overflow: hidden;
+  background-color: #ffffff;
 }
 
 #map-container {
@@ -8,19 +11,96 @@ html, body {
 
 #map {
   height: 100%;
+  background-color: transparent;
 }
 
+#main-container {
+  height: 100%;
+  /* Override bootstrap defaults for full page map */
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.row-offcanvas {
+  position: relative;
+
+  /* Override bootstrap defaults for full page map */
+  margin-right: 0;
+  margin-left: 0;
+
+  height: 100%;
+  width: 100%;
+}
+
+/* Common and closed state sidebar styles */
 #sidebar {
-  background: grey;
   position: absolute;
   top: 0;
-  left: 0;
+  left: -20%;
   z-index: 100;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+
+  width: 20%;
+  height: 100%;
+  min-height: 100%;
+
+  background-color: #ffffff;
+}
+
+/* Open state sidebar styles */
+#sidebar.open {
+  left: 0;
+}
+
+.sidebar-controls {
+  position: absolute;
+  top: 0.5em;
+  right: -2.15rem;
+  z-index: 50;
+
+  /* Mimic OpenLayers control styles */
+  background-color: rgba(255, 255, 255, .4);
+  border-radius: 0 4px 4px 0;
+  padding: 0.15rem 0.15rem 0.15rem 0;
+  border-left: none;
+}
+
+.sidebar-controls .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  background-color: rgba(0, 60, 136, .5)
+}
+
+.sidebar-controls .oi {
+  color: #ffffff;
+}
+
+main#content {
   height: 100%;
 }
 
-#sidebar-toggle {
-  position: absolute;
-  top: 0.5em;
-  left: 0.5em;
+.navbar {
+  background-color: rgb(15, 109, 173);
+  color: #ffffff;
+  font-family: "Open Sans", Arial, Helvetica, Verdana, sans-serif;
+  /* Limit height to logo height plus 8px margins */
+  height: 91px;
+  max-height: 91px;
+}
+
+.navbar h1 {
+  font-size: 1em;
+  margin-bottom: 0;
+}
+
+.navbar p, .navbar a {
+  font-size: small;
+  margin-bottom: 0;
+}
+
+.navbar a {
+  color: #ffffff;
 }
