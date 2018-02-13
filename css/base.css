@@ -16,20 +16,6 @@ html {
   background-color: transparent;
 }
 
-.gsoc-attribution {
-  width: 100%;
-  height: 25px;
-
-  /* Similar color to the images from header */
-  background: rgb(15, 109, 173); /* Fall-back in case rgba isn't supported */
-  background: rgba(15, 109, 173, .5);
-
-  position: absolute;
-  bottom: 0;
-
-  font-size: small;
-  line-height: 2;
-}
 
 /* Reposition bottom bar just above attributions */
 #bottomBar1, #legend_GF {

@@ -60,6 +60,7 @@ $(function() {
   })
 
   // Interaction used to select features by drawing boxes
+  // FIXME Change to Extent interaction
   var dragBox = new ol.interaction.DragBox({
     // Ctrl + Drag
     condition: ol.events.condition.platformModifierKeyOnly
