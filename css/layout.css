@@ -5,6 +5,7 @@ html, body {
   /* Prevent scrolling */
   overflow: hidden;
   background-color: #ffffff;
+  font-family: "Open Sans", Arial, Helvetica, Verdana, sans-serif;
 }
 
 #map-container {
@@ -89,7 +90,6 @@ main#content {
 .navbar {
   background-color: rgb(15, 109, 173);
   color: #ffffff;
-  font-family: "Open Sans", Arial, Helvetica, Verdana, sans-serif;
   /* Limit height to logo height plus 8px margins */
   height: 91px;
   max-height: 91px;
@@ -123,4 +123,13 @@ main#content {
   font-size: small;
   text-align: center;
   line-height: 2;
+}
+
+/* Welcome modal styling */
+#welcome .modal-footer {
+  justify-content: space-between;
+}
+
+#welcome .modal-links {
+  text-align: left;
 }

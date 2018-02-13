@@ -9,6 +9,7 @@
     <meta name="keywords" content="GSOCmap, GSP,  Map, FAO" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="css/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
@@ -24,8 +25,9 @@
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" defer
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="js/gsocmap.js" defer></script>
     <script src="js/layout.js" defer></script>
+    <script src="js/welcome.js" defer></script>
+    <script src="js/gsocmap.js" defer></script>
 
     <title>GSOCmap</title>
   </head>
@@ -76,6 +78,46 @@
     <div id="popup" class="ol-popup">
       <a href="#" id="popup-closer" class="ol-popup-closer"></a>
       <div id="popup-content"></div>
+    </div>
+
+    <div class="modal fade" id="welcome" tabindex="-1" role="dialog" aria-labelledby="welcome-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="welcome-title">
+              This interactive map allows you to explore the GSOCmap
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              This map provides users with very useful information to monitor
+              the soil condition, identify degraded areas, set restoration
+              targets, explore SOC sequestration potentials, support the
+              greenhouse gas emission reporting under the UNFCCC and make
+              evidence based decisions to mitigate and adapt to a changing
+              climate.
+            </p>
+
+            <div class="modal-links">
+              <a class="text-secondary font-weight-bold" href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/en">Home</a>
+              <span>&nbsp;|&nbsp;</span>
+              <a class="text-secondary font-weight-bold" href="http://www.fao.org/documents/card/en/c/fb798a4c-ff06-4468-ad18-27787d1f3456">Leaflet</a>
+              <span>&nbsp;|&nbsp;</span>
+              <a class="text-secondary font-weight-bold" href="http://www.fao.org/global-soil-partnership/pillars-action/4-information-and-data/global-soil-organic-carbon-gsoc-map/gsocmap-contributors/en">Contributors</a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="modal-copyright">
+              &copy; FAO, <span class="current-year">2018</span>
+            </div>
+
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

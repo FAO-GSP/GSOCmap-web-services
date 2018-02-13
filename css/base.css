@@ -22,23 +22,6 @@ html {
   bottom: 30px;
 }
 
-/* Welcome modal styling */
-.modal-copyright {
-  text-align: center;
-  border-top: 1px solid #bbb;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-.modal-dismiss {
-  text-align: right;
-}
-
-/* Make the modal cover everything */
-.blocker {
-  z-index: 6001;
-}
-
 /* VME styles fixes */
 #pageBannerDownload {
   height: 75px;
