@@ -175,7 +175,7 @@ $(function() {
         attribution = 'With contributions from ' + formattedContributors.join(', ') + '.'
       }
 
-      $('.gsoc-attribution').html(attribution)
+      $('#gsoc-attribution').html(attribution)
     })
   })
 
