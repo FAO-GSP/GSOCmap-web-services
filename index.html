@@ -30,20 +30,20 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 col-xs-1 pl-0 pr-0 collapse in" id="sidebar">
-          The sidebar
-        </div>
-
-        <main class="col-md-9 col-xs-11 p-l-2 p-t-2">
-          <a href="#sidebar" data-toggle="collapse">
+        <main class="col pl-0 pr-0">
+          <a id="#sidebar-toggle" href="#sidebar" data-toggle="collapse">
             <span class="oi oi-menu" title="Menu" aria-hidden="true"></span>
           </a>
 
-          <div id="map-container" class="d-flex">
+          <div id="map-container">
             <div id="map"></div>
           </div>
         </main>
       </div>
+    </div>
+
+    <div class="col-3 collapse in" id="sidebar">
+        The sidebar
     </div>
   </body>
 </html>
