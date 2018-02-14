@@ -28,11 +28,10 @@
       integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" defer
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="js/wps.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" defer></script>
     <script src="js/layout.js" defer></script>
     <script src="js/welcome.js" defer></script>
     <script src="js/gsocmap.js" defer></script>
-    <script src="js/wps-requests.js" defer></script>
 
     <title>GSOCmap</title>
   </head>
@@ -145,5 +144,59 @@
         </div>
       </div>
     </div>
+
+    <!-- Templates for WPS Requests -->
+    <script type="text/xml" id="crop-template">
+      <?xml version="1.0" encoding="UTF-8"?>
+      <wps:Execute
+        version="1.0.0"
+        service="WPS"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.opengis.net/wps/1.0.0"
+        xmlns:wfs="http://www.opengis.net/wfs"
+        xmlns:wps="http://www.opengis.net/wps/1.0.0"
+        xmlns:ows="http://www.opengis.net/ows/1.1"
+        xmlns:gml="http://www.opengis.net/gml"
+        xmlns:ogc="http://www.opengis.net/ogc"
+        xmlns:wcs="http://www.opengis.net/wcs/1.1.1"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xsi:schemaLocation="http://www.opengis.net/wps/1.0.0 http://schemas.opengis.net/wps/1.0.0/wpsAll.xsd">
+        <ows:Identifier>gs:CropCoverage</ows:Identifier>
+        <wps:DataInputs>
+          <wps:Input>
+           <ows:Identifier>coverage</ows:Identifier>
+            <wps:Reference mimeType="image/tiff" xlink:href="http://geoserver/wcs" method="POST">
+             <wps:Body>
+               <wcs:GetCoverage service="WCS" version="1.1.1">
+                  <ows:Identifier>GSOC:GSOCmapV1.2.0RAW</ows:Identifier>
+                 <wcs:DomainSubset>
+                   <ows:BoundingBox crs="http://www.opengis.net/gml/srs/epsg.xml#4326">
+                     <ows:LowerCorner>-180.0 -70.91725146799998</ows:LowerCorner>
+                      <ows:UpperCorner>180.00833189299993 83.616081247</ows:UpperCorner>
+                   </ows:BoundingBox>
+                 </wcs:DomainSubset>
+                  <wcs:Output format="image/tiff"/>
+               </wcs:GetCoverage>
+              </wps:Body>
+           </wps:Reference>
+          </wps:Input>
+          <wps:Input>
+           <ows:Identifier>cropShape</ows:Identifier>
+            <wps:Data>
+             <wps:ComplexData mimeType="text/xml; subtype=gml/3.1.1"><![CDATA[
+                POLYGON((
+                 {{points}}
+               ))]]>
+              </wps:ComplexData>
+           </wps:Data>
+          </wps:Input>
+        </wps:DataInputs>
+        <wps:ResponseForm>
+          <wps:RawDataOutput mimeType="image/tiff">
+            <ows:Identifier>result</ows:Identifier>
+          </wps:RawDataOutput>
+        </wps:ResponseForm>
+      </wps:Execute>
+    </script>
   </body>
 </html>
