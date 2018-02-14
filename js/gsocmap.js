@@ -5,11 +5,14 @@ var extent = [-180, -65, 180, 55]
 //
 // Tile layer
 var tiles = new ol.layer.Tile({
+  preload: 15,
   source: new ol.source.TileWMS({
     url: '/geoserver/GSOC/wms',
+    ratio: 2,
     params: {
+      // It has to be uppercase for WFS
       'LAYERS': 'GSOC:NE2',
-      'format': 'image/png8'
+      format: 'image/png8'
     }
   })
 })
@@ -17,8 +20,10 @@ var tiles = new ol.layer.Tile({
 // GSOC data layer
 var gsocData = new ol.layer.Image({
   opacity: 0.8,
+  preload: 15,
   source: new ol.source.ImageWMS({
     url: '/geoserver/GSOC/wms',
+    ratio: 2,
     params: {
       // It has to be uppercase for WFS
       'LAYERS': 'GSOC:GSOCmapV1.2.0',
@@ -55,7 +60,9 @@ $(function() {
       attribution: false
     }),
     target: 'map',
-    view: view
+    view: view,
+    loadTilesWhileAnimating: true,
+    loadTilesWhileInteracting: true,
   })
 
   // Interaction used to select features by drawing boxes
