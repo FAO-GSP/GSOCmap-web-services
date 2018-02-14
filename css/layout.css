@@ -126,7 +126,7 @@ footer .copyright {
 }
 
 footer #gsoc-attribution {
-  height: 50px;
+  min-height: 50px;
 
   /* Similar color to the images from header */
   background-color: rgb(255, 255, 255); /* Fall-back in case rgba isn't supported */
@@ -149,6 +149,7 @@ footer #gsoc-attribution {
 #map-legend {
   position: absolute;
   right: 0.5rem;
+  /* FIXME Find a way to adapt to an expanding footer */
   bottom: 65px;
 
   display: flex;
