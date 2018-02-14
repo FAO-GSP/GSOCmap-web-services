@@ -128,14 +128,14 @@ $(function() {
     var featureRequest = new ol.format.WFS().writeGetFeature({
       // FIXME Use correct geoserver url
       featureNS: 'http://54.229.242.119/',
+      // Workspace name
       featurePrefix: 'gsoc',
       // Layer name without workspace
       featureTypes: ['metadata'],
       outputFormat: 'application/json',
-      geometryName: 'geom',
-      bbox: bbox,
       srsName: 'EPSG:4326',
-      propertyNames: [contributorId, 'iso']
+      propertyNames: [contributorId, 'iso'],
+      filter: ol.format.filter.bbox('geom', bbox, 'EPSG:4326')
     })
 
     // Send the request and parse it
@@ -148,26 +148,27 @@ $(function() {
       var features = new ol.format.GeoJSON().readFeatures(geojson)
       var attribution = ''
 
-      // If there are between 6 and 1 contributors, list them.
-      if (geojson.totalFeatures > 6) {
-        attribution = 'There are ' + geojson.totalFeatures + ' contributors for the current view.'
-      } else if (geojson.totalFeatures > 0) {
-        // Accumulate ISOs by the same contributor
-        reducer = (hash, feature) => {
-          key = feature.get(contributorId)
+      // Accumulate ISOs by the same contributor
+      reducer = (hash, feature) => {
+        key = feature.get(contributorId)
 
-          if (!(hash[key] instanceof Array)) {
-            hash[key] = []
-          }
-
-          hash[key].push(feature.get('iso'))
-          return hash
+        if (!(hash[key] instanceof Array)) {
+          hash[key] = []
         }
 
-        var contributors = features.reduce(reducer, {})
+        hash[key].push(feature.get('iso'))
+        return hash
+      }
 
+      var contributors = features.reduce(reducer, {})
+      var identifiers = Object.keys(contributors)
+
+      // If there are between 6 and 1 contributors, list them.
+      if (identifiers.length > 6) {
+        attribution = 'There are ' + identifiers.length + ' contributors for the current view.'
+      } else if (identifiers.length > 0) {
         // Generate formatted strings such as: contributor (ISO, ISO)
-        var formattedContributors = Object.keys(contributors).map(function(key) {
+        var formattedContributors = identifiers.map(function(key) {
           return key + ' (' + contributors[key].join(', ') + ')'
         })
 
