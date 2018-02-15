@@ -75,7 +75,7 @@ $(function() {
   dragBox.on('boxend', function(e) {
     var bbox = dragBox.getGeometry().getExtent()
 
-    console.log('Dragbox: ' + bbox.join(', '))
+    crop(bbox)
   })
 
   // Add interactions to the current set
