@@ -61,11 +61,20 @@
       <div class="row row-offcanvas">
         <div id="sidebar">
           <div class="sidebar-content">
-            Use Ctrl + Drag to select an area and calculate it's organic carbon stock.
+            <div id="crop" class="tab">
+              Use Ctrl + Drag to select an area to crop and downloaded as raster.
+            </div>
+            <div id="stats" class="tab">
+              Use Ctrl + Drag to select an area and calculate it's organic carbon stock.
+            </div>
           </div>
           <div class="sidebar-controls">
-            <button id="sidebar-toggle" data-toggle="offcanvas" class="btn btn-sm">
-              <span class="oi oi-menu" title="Menu" aria-hidden="true"></span>
+            <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#crop" class="btn btn-sm">
+              <span class="oi oi-crop" title="Crop and download" aria-hidden="true"></span>
+            </button>
+
+            <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#stats" class="btn btn-sm">
+              <span class="oi oi-bar-chart" title="Statistics" aria-hidden="true"></span>
             </button>
           </div>
         </div>
