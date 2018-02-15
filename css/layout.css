@@ -51,7 +51,7 @@ html, body {
   padding: 0.5rem;
 
   background-color: rgb(255, 255, 255); /* Fall-back in case rgba isn't supported */
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .sidebar-content .tab {
@@ -65,6 +65,24 @@ html, body {
 
 #sidebar.open .sidebar-content .tab.open {
   display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content .tab h1 {
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid rgb(15, 109, 173);
+}
+
+.sidebar-content .tab p {
+  font-size: smaller;
+}
+
+.sidebar-content .tab .results {
+  font-size: smaller;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sidebar-controls {
@@ -75,7 +93,7 @@ html, body {
   z-index: 50;
 
   /* Mimic OpenLayers control styles */
-  background-color: rgba(255, 255, 255, .4);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 0 4px 4px 0;
   padding: 0.15rem 0.15rem 0.15rem 0;
   border-left: none;
@@ -90,7 +108,7 @@ html, body {
   border: unset;
   margin-bottom: 0.1rem;
 
-  background-color: rgba(0, 60, 136, .5)
+  background-color: rgba(0, 60, 136, 0.5)
 }
 
 .sidebar-controls .oi {
@@ -142,9 +160,8 @@ footer .copyright {
 footer #gsoc-attribution {
   min-height: 50px;
 
-  /* Similar color to the images from header */
   background-color: rgb(255, 255, 255); /* Fall-back in case rgba isn't supported */
-  background-color: rgba(255, 255, 255, .5);
+  background-color: rgba(255, 255, 255, 0.5);
 
   bottom: 0;
 
@@ -156,6 +173,7 @@ footer #gsoc-attribution {
   align-items: center;
   justify-content: center;
 
+  /* Similar color to the images from header */
   color: rgb(15, 109, 173);
   line-height: 2;
 }

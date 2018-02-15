@@ -37,6 +37,8 @@ var statistics = function(bbox) {
     }).join(', ')
   })
 
+  let spinner = new Spinner().spin($('#statistics .spinner')[0])
+
   $.ajax({
     url: '/geoserver/GSOC/wms',
     type: 'POST',
@@ -44,12 +46,22 @@ var statistics = function(bbox) {
     data: request,
     dataType: 'xml'
   }).done(function(data, status, xhr) {
-    // Get statistics values
-    console.log('sum: ' + $(data).find('feature\\:sum').text())
-    console.log('min: ' + $(data).find('feature\\:min').text())
-    console.log('max: ' + $(data).find('feature\\:max').text())
+    let extract = function(node) {
+      let text = $(data).find(`feature\\:${node}`).text()
+
+      return Number(text).toFixed(2)
+    }
+
+    $('#statistics .sum').html(extract('sum'))
+    $('#statistics .min').html(extract('min'))
+    $('#statistics .max').html(extract('max'))
+    $('#statistics .avg').html(extract('avg'))
+    $('#statistics .stddev').html(extract('stddev'))
   }).fail(function(xhr, status, error) {
     console.log(status + ': ' + error)
+  }).always(function() {
+    bboxChanged = false
+    spinner.stop()
   })
 }
 

@@ -29,6 +29,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" defer
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
     <script src="js/layout.js" defer></script>
     <script src="js/welcome.js" defer></script>
     <script src="js/gsocmap.js" defer></script>
@@ -64,8 +65,46 @@
             <div id="crop" class="tab">
               Use Ctrl + Drag to select an area to crop and downloaded as raster.
             </div>
-            <div id="stats" class="tab">
-              Use Ctrl + Drag to select an area and calculate it's organic carbon stock.
+            <div id="statistics" class="tab">
+              <h1>Zonal SOC Stock Statistics Tool</h1>
+
+              <p>
+                Use Crtl+Drag to draw an extent and calculate statistics for
+                it. Crtl+Drag on the corners or edges of the extent to resize
+                it.
+              </p>
+
+              <div class="spinner"></div>
+
+              <dl class="row results">
+                <dt class="col-sm-4">Total stock</dt>
+                <dd class="col-sm-8">
+                  <dl class="row">
+                    <dt class="col-sm-4"></dt>
+                    <dd class="col-sm-8"><span class="sum"></span> Mg</dd>
+                  </dl>
+                </dd>
+
+                <dt class="col-sm-4">SOC Density</dt>
+                <dd class="col-sm-8">
+                  <dl class="row">
+                    <dt class="col-sm-4">Min</dt>
+                    <dd class="col-sm-8"><span class="min"></span> Mg ha-1</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Max</dt>
+                    <dd class="col-sm-8"><span class="max"></span> Mg ha-1</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Mean</dt>
+                    <dd class="col-sm-8"><span class="avg"></span> Mg ha-1</dd>
+                  </dl>
+                  <dl class="row">
+                    <dt class="col-sm-4">Stddev</dt>
+                    <dd class="col-sm-8"><span class="stddev"></span> Mg ha-1</dd>
+                  </dl>
+                </dd>
+              </dl>
             </div>
           </div>
           <div class="sidebar-controls">
@@ -73,7 +112,7 @@
               <span class="oi oi-crop" title="Crop and download" aria-hidden="true"></span>
             </button>
 
-            <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#stats" class="btn btn-sm">
+            <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#statistics" class="btn btn-sm">
               <span class="oi oi-bar-chart" title="Statistics" aria-hidden="true"></span>
             </button>
           </div>

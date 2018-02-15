@@ -1,5 +1,8 @@
 // Initial map view
 var extent = [-180, -65, 180, 55]
+// Global bbox for preserving drawn value
+var bboxCurrent = []
+var bboxChanged = false
 
 // Map layers
 //
@@ -66,20 +69,39 @@ $(function() {
   })
 
   // Interaction used to select features by drawing boxes
-  // FIXME Change to Extent interaction
-  var dragBox = new ol.interaction.DragBox({
+  var dragBox = new ol.interaction.Extent({
     // Ctrl + Drag
     condition: ol.events.condition.platformModifierKeyOnly
   })
 
-  dragBox.on('boxend', function(e) {
-    var bbox = dragBox.getGeometry().getExtent()
+  dragBox.on('extentchanged', function(e) {
+    bboxCurrent = dragBox.getExtent()
+    bboxChanged = true
+  })
 
-    crop(bbox)
+  this.addEventListener('mouseup', function(e) {
+    // Only trigger if we have an area of interest and it has changed recently
+    if(bboxChanged && bboxCurrent) {
+      statistics(bboxCurrent)
+      $('[data-target="#statistics"]').click()
+      $('#statistics .results').show(500)
+    }
   })
 
   // Add interactions to the current set
   map.addInteraction(dragBox)
+
+  // Disable it
+  dragBox.setActive(false)
+
+  // And enable it by holding Ctrl
+  this.addEventListener('keydown', function(event) {
+    if (event.keyCode == 17) { dragBox.setActive(true) }
+  })
+
+  this.addEventListener('keyup', function(event) {
+    if (event.keyCode == 17) { dragBox.setActive(false) }
+  })
 
   // Click handler to render the popup
   map.on('singleclick', function(e) {
