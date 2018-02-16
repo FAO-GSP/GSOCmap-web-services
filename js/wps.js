@@ -6,6 +6,8 @@ var crop = function(bbox) {
     }).join(', ')
   })
 
+  let spinner = new Spinner().spin($('#crop .spinner')[0])
+
   $.ajax({
     url: '/geoserver/GSOC/wms',
     type: 'POST',
@@ -26,6 +28,9 @@ var crop = function(bbox) {
     triggerDownload(filename, blob)
   }).fail(function(xhr, status, error) {
     console.log(status + ': ' + error)
+  }).always(function() {
+    bboxChanged = false
+    spinner.stop()
   })
 }
 

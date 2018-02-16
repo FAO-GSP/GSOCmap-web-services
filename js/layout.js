@@ -7,6 +7,7 @@ $(function() {
 
   // Only show when there are results
   $('#statistics .results').hide()
+  $('#crop-and-download').prop('disabled', true)
 
   // Clicking a sidebar control opens the sidebar with that button's target tab
   // active.

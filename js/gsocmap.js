@@ -82,9 +82,11 @@ $(function() {
   this.addEventListener('mouseup', function(e) {
     // Only trigger if we have an area of interest and it has changed recently
     if(bboxChanged && bboxCurrent) {
+      // FIXME Only if we're not on another tab?
       statistics(bboxCurrent)
       $('[data-target="#statistics"]').trigger('click', { forced: true })
       $('#statistics .results').show(500)
+      $('button#crop-and-download').prop('disabled', false)
     }
   })
 
@@ -221,5 +223,9 @@ $(function() {
 
     // Don't follow the href on tag
     return false
+  })
+
+  $('#crop-and-download').on('click', function() {
+    crop(bboxCurrent)
   })
 })
