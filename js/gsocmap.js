@@ -15,7 +15,7 @@ var tiles = new ol.layer.Tile({
     params: {
       // It has to be uppercase for WFS
       'LAYERS': 'GSOC:NE2',
-      format: 'image/png8'
+      format: 'image/jpeg'
     }
   })
 })
