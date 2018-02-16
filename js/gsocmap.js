@@ -83,7 +83,7 @@ $(function() {
     // Only trigger if we have an area of interest and it has changed recently
     if(bboxChanged && bboxCurrent) {
       statistics(bboxCurrent)
-      $('[data-target="#statistics"]').click()
+      $('[data-target="#statistics"]').trigger('click', { forced: true })
       $('#statistics .results').show(500)
     }
   })
