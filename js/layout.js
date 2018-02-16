@@ -1,4 +1,10 @@
 $(function() {
+  // Fade in the welcome modal
+  // TODO on 'show.bs.modal' calculate current year
+  $('#welcome.modal').modal({
+    fadeDuration: 250
+  })
+
   // Only show when there are results
   $('#statistics .results').hide()
 
