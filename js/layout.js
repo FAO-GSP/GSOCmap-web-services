@@ -24,8 +24,10 @@ $(function() {
       // If the sidebar is open and the tab active, hide everything.
       $('#sidebar, #sidebar .tab').removeClass('open')
     } else if(!forced) {
-      // If the sidebar is open and the tab is not active, just toggle every tab.
-      $('#sidebar .tab').toggleClass('open')
+      // If the sidebar is open and the tab is not active, open it and close the
+      // rest.
+      $('#sidebar .tab').removeClass('open')
+      tab.addClass('open')
       tab.trigger('opened')
     }
 

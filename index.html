@@ -61,6 +61,36 @@
       <div class="row row-offcanvas">
         <div id="sidebar">
           <div class="sidebar-content">
+            <div id="info" class="tab">
+              <h1>GSOCmap, a stepping stone in our knowledge of soils</h1>
+
+              <p>
+                The Global Soil Organic Carbon Map (GSOCmap) is not just a map!
+                It is also a consultative and participatory process involving
+                110 countries, which makes this map totally new and unique!
+              </p>
+
+              <p>
+                The GSOCmap provides users with very useful information to
+                monitor the soil condition, identify degraded areas, set
+                restoration targets, explore SOC sequestration potentials,
+                support the greenhouse gas emission reporting under the UNFCCC
+                and make evidence-based decisions to mitigate and adapt to a
+                changing climate.
+              </p>
+
+              <p>
+                GSOCmap can be downloaded using the
+                <a data-toggle="offcanvas" data-target="#crop" href="#">Crop &amp; Download</a> Tool.
+                Statistics for a region can be calculated using the
+                <a data-toggle="offcanvas" data-target="#statistics" href="#">Statistics</a> Tool.
+              </p>
+
+              <p>
+                GSOCmap can also be accessed using Web Map Services at: <code>http://54.229.242.119/geoserver/GSOC/wms?</code>
+              </p>
+            </div>
+
             <div id="crop" class="tab">
               <h1>GSOCmap Crop & Download Tool</h1>
 
@@ -117,8 +147,13 @@
             </div>
           </div>
           <div class="sidebar-controls">
+            <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#info" class="btn btn-sm">
+              <span class="oi oi-info" title="GSOCmap Information" aria-hidden="true"></span>
+            </button>
+
+
             <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#crop" class="btn btn-sm">
-              <span class="oi oi-crop" title="Crop and download" aria-hidden="true"></span>
+              <span class="oi oi-crop" title="Crop & Download" aria-hidden="true"></span>
             </button>
 
             <button id="sidebar-toggle" data-toggle="offcanvas" data-target="#statistics" class="btn btn-sm">
