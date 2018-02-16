@@ -21,10 +21,10 @@ var tiles = new ol.layer.Tile({
 })
 
 // GSOC data layer
-var gsocData = new ol.layer.Image({
+var gsocData = new ol.layer.Tile({
   opacity: 0.8,
   preload: 15,
-  source: new ol.source.ImageWMS({
+  source: new ol.source.TileWMS({
     url: '/geoserver/GSOC/wms',
     ratio: 2,
     params: {
