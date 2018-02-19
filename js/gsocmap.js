@@ -10,7 +10,7 @@ var bboxChanged = false
 var tiles = new ol.layer.Tile({
   preload: 15,
   source: new ol.source.TileWMS({
-    url: '/geoserver/GSOC/wms',
+    url: '/geoserver/gwc/service',
     ratio: 2,
     params: {
       // It has to be uppercase for WFS
@@ -25,7 +25,7 @@ var gsocData = new ol.layer.Tile({
   opacity: 0.8,
   preload: 15,
   source: new ol.source.TileWMS({
-    url: '/geoserver/GSOC/wms',
+    url: '/geoserver/gwc/service',
     ratio: 2,
     params: {
       // It has to be uppercase for WFS
