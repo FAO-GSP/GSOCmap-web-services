@@ -183,6 +183,9 @@ $(function() {
       reducer = (hash, feature) => {
         key = feature.get(contributorId)
 
+        // Don't count null contributors
+        if (!key) { return hash }
+
         if (!(hash[key] instanceof Array)) {
           hash[key] = []
         }
