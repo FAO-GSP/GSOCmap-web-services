@@ -205,3 +205,7 @@ footer #gsoc-attribution {
 #welcome .modal-links {
   text-align: left;
 }
+
+#download.tab .files {
+  font-size: small;
+}
