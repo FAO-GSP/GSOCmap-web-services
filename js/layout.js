@@ -1,3 +1,6 @@
+// Globally accessible spinner handle
+var spinner = null
+
 $(function() {
   // Fade in the welcome modal
   // TODO on 'show.bs.modal' calculate current year
@@ -8,6 +11,9 @@ $(function() {
   // Only show when there are results
   $('#statistics .results').hide()
   $('#crop-and-download').prop('disabled', true)
+
+  // Prepare the spinner
+  spinner = new Spinner()
 
   // Clicking a sidebar control opens the sidebar with that button's target tab
   // active.

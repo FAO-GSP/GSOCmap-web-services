@@ -3,6 +3,8 @@ var extent = [-180, -65, 180, 55]
 // Global bbox for preserving drawn value
 var bboxCurrent = []
 var bboxChanged = false
+// Keep the current request to the metadata layer to abort it later if needed
+var currentMetadataRequest = null
 
 // Map layers
 //
@@ -42,6 +44,77 @@ var view = new ol.View({
   center: [0, 0],
   minZoom: 2
 })
+
+// Callback to get a list of contributors for the current view extent
+var requestContributors = function(event) {
+  if(currentMetadataRequest) { currentMetadataRequest.abort() }
+
+  // Get bounding box for current view
+  var bbox = event.map.getView().calculateExtent()
+  // Add CRS for query
+  bbox.push('EPSG:4326')
+
+  // The metadata field used to specify a contributor
+  var contributorId = 'metadata_full_institution'
+
+  // Construct an XML feature request by WFS standards
+  var featureRequest = new ol.format.WFS().writeGetFeature({
+    // FIXME Use correct geoserver url
+    featureNS: 'http://54.229.242.119/',
+    // Workspace name
+    featurePrefix: 'gsoc',
+    // Layer name without workspace
+    featureTypes: ['metadata'],
+    outputFormat: 'application/json',
+    srsName: 'EPSG:4326',
+    propertyNames: [contributorId, 'iso'],
+    filter: ol.format.filter.bbox('geom', bbox, 'EPSG:4326')
+  })
+
+  // Send the request and parse it
+  currentMetadataRequest = $.ajax({
+    url: '/geoserver/GSOC/wms',
+    type: 'POST',
+    contentType: 'text/plain',
+    dataType: 'json',
+    data: new XMLSerializer().serializeToString(featureRequest)
+  }).done(function(geojson) {
+    var features = new ol.format.GeoJSON().readFeatures(geojson)
+    var attribution = ''
+
+    // Accumulate ISOs by the same contributor
+    reducer = (hash, feature) => {
+      key = feature.get(contributorId)
+
+      // Don't count null contributors
+      if (!key) { return hash }
+
+      if (!(hash[key] instanceof Array)) {
+        hash[key] = []
+      }
+
+      hash[key].push(feature.get('iso'))
+      return hash
+    }
+
+    var contributors = features.reduce(reducer, {})
+    var identifiers = Object.keys(contributors)
+
+    // If there are between 6 and 1 contributors, list them.
+    if (identifiers.length > 6) {
+      attribution = 'There are ' + identifiers.length + ' contributors for the current view.'
+    } else if (identifiers.length > 0) {
+      // Generate formatted strings such as: contributor (ISO, ISO)
+      var formattedContributors = identifiers.map(function(key) {
+        return key + ' (' + contributors[key].join(', ') + ')'
+      })
+
+      attribution = 'With contributions from ' + formattedContributors.join(', ') + '.'
+    }
+
+    $('#gsoc-attribution').html(attribution)
+  })
+}
 
 $(function() {
   // Popup overlay
@@ -142,76 +215,8 @@ $(function() {
     })
   })
 
-  map.on('moveend', function(e){
-    // Get bounding box for current view
-    var bbox = e.map.getView().calculateExtent()
-
-    // Add CRS for query
-    bbox.push('EPSG:4326')
-
-    // TODO Remove after fixing contributors
-    console.log(bbox.join(', '))
-
-    // The metadata field used to specify a contributor
-    var contributorId = 'metadata_full_institution'
-
-    // Construct an XML feature request by WFS standards
-    var featureRequest = new ol.format.WFS().writeGetFeature({
-      // FIXME Use correct geoserver url
-      featureNS: 'http://54.229.242.119/',
-      // Workspace name
-      featurePrefix: 'gsoc',
-      // Layer name without workspace
-      featureTypes: ['metadata'],
-      outputFormat: 'application/json',
-      srsName: 'EPSG:4326',
-      propertyNames: [contributorId, 'iso'],
-      filter: ol.format.filter.bbox('geom', bbox, 'EPSG:4326')
-    })
-
-    // Send the request and parse it
-    fetch('/geoserver/GSOC/wms', {
-      method: 'POST',
-      body: new XMLSerializer().serializeToString(featureRequest)
-    }).then(function(response) {
-      return response.json()
-    }).then(function(geojson) {
-      var features = new ol.format.GeoJSON().readFeatures(geojson)
-      var attribution = ''
-
-      // Accumulate ISOs by the same contributor
-      reducer = (hash, feature) => {
-        key = feature.get(contributorId)
-
-        // Don't count null contributors
-        if (!key) { return hash }
-
-        if (!(hash[key] instanceof Array)) {
-          hash[key] = []
-        }
-
-        hash[key].push(feature.get('iso'))
-        return hash
-      }
-
-      var contributors = features.reduce(reducer, {})
-      var identifiers = Object.keys(contributors)
-
-      // If there are between 6 and 1 contributors, list them.
-      if (identifiers.length > 6) {
-        attribution = 'There are ' + identifiers.length + ' contributors for the current view.'
-      } else if (identifiers.length > 0) {
-        // Generate formatted strings such as: contributor (ISO, ISO)
-        var formattedContributors = identifiers.map(function(key) {
-          return key + ' (' + contributors[key].join(', ') + ')'
-        })
-
-        attribution = 'With contributions from ' + formattedContributors.join(', ') + '.'
-      }
-
-      $('#gsoc-attribution').html(attribution)
-    })
-  })
+  // Get a list of contributors for the current view extent
+  map.on('moveend', requestContributors)
 
   // Fit view to full map size
   view.fit(extent, { constrainResolution: false })

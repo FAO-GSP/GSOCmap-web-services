@@ -1,18 +1,29 @@
+// Keep the current WPS request to abort it later if needed
+var currentWpsRequest = null
+
+var abortCurrentWpsRequest = function() {
+  bboxChanged = false
+  spinner.stop()
+  currentWpsRequest.abort()
+}
+
 // Request a gs:CropCoverage process
 var crop = function(bbox) {
-  var request = prepareRequest('crop', {
+  if(currentWpsRequest) { abortCurrentWpsRequest() }
+
+  var wpsRequest = prepareWpsRequest('crop', {
     points: bboxToPoints(bbox).map(function(p) {
       return `${p[0]} ${p[1]}`
     }).join(', ')
   })
 
-  let spinner = new Spinner().spin($('#crop .spinner')[0])
+  spinner.spin($('#crop .spinner')[0])
 
-  $.ajax({
+  currentWpsRequest = $.ajax({
     url: '/geoserver/GSOC/wms',
     type: 'POST',
     contentType: 'text/plain',
-    data: request,
+    data: wpsRequest,
     // Treat response as a binary file
     xhrFields: {
       responseType: 'blob'
@@ -36,19 +47,21 @@ var crop = function(bbox) {
 
 // Request a ras:RasterZonalStatistics process
 var statistics = function(bbox) {
-  request = prepareRequest('statistics', {
+  if(currentWpsRequest) { abortCurrentWpsRequest() }
+
+  wpsRequest = prepareWpsRequest('statistics', {
     points: bboxToPoints(bbox).map(function(p) {
       return `[${p.join(', ')}]`
     }).join(', ')
   })
 
-  let spinner = new Spinner().spin($('#statistics .spinner')[0])
+  spinner.spin($('#statistics .spinner')[0])
 
-  $.ajax({
+  currentWpsRequest = $.ajax({
     url: '/geoserver/GSOC/wms',
     type: 'POST',
     contentType: 'text/plain',
-    data: request,
+    data: wpsRequest,
     dataType: 'xml'
   }).done(function(data, status, xhr) {
     let extract = function(node) {
@@ -81,10 +94,10 @@ var bboxToPoints = function(bbox) {
   ]
 }
 
-var prepareRequest = function(process, data) {
+var prepareWpsRequest = function(process, data) {
   var template = $(`#${process}-template`).html()
 
-  // TODO Trigger parsing on draw end (before button clicked)
+  // Caches the template for subsequent requests to the same WPS
   Mustache.parse(template)
 
   return Mustache.render(template, data)
