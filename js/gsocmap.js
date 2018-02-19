@@ -200,11 +200,11 @@ $(function() {
 
       if (feature) {
         // The webservice uses GRAY_INDEX as the SOC value
-        var soc = feature.get('GRAY_INDEX').toFixed(1)
+        var soc = feature.get('GRAY_INDEX').toFixed(2)
 
-        var content = '<p><b>SOC</b> '
+        var content = 'SOC <b>'
           + soc
-          + ' <em>Mg ha-1</em></p>'
+          + '</b> Mg ha-1'
 
         // Generate the popup content
         $('#popup-content').html(content)
