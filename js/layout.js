@@ -1,6 +1,16 @@
 // Globally accessible spinner handle
 var spinner = null
 
+// Gets a template from the page and process it.
+var renderTemplate = function(name, data) {
+  var template = $(`#${name}-template`).html()
+
+  // Caches the template for subsequent rendering
+  Mustache.parse(template)
+
+  return Mustache.render(template, data)
+}
+
 $(function() {
   // Fade in the welcome modal
   // TODO on 'show.bs.modal' calculate current year

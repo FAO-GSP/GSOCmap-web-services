@@ -3,20 +3,16 @@ $(document).on('opened', '#download.tab', function() {
   if($.trim($('#download.tab .files').html()) == '') {
     $.get({
       url: '/GSOCmap/downloads',
-      dataType: 'html'
+      dataType: 'json'
     }).done(function(data, status, xhr) {
-      // Get all the rows except the first, because it's Parent directory, and
-      // every hidden file
-      let files = $(data).find('tr').slice(1).filter(function() {
-        return $(this).find('a').html().substring(0, 1) !== '.'
+
+      data.forEach(function(file) {
+        file.size = `${Math.ceil(file.size / 1024 / 1024)} MB`
+        file.mtime = new Date(Date.parse(file.mtime)).toLocaleString()
       })
 
-      // Transform bytes to MBs
-      files.find('td:contains("bytes")').each(function() {
-        $(this).html(
-          `${Math.ceil(Number($(this).html().split(' ')[0]) / 1024 / 1024)} MB`
-        )
-      })
+      // Name the collection for templating
+      files = renderTemplate('download', { files: data })
 
       $('#download.tab .files').append(files)
     })

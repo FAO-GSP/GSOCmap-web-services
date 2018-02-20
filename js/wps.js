@@ -11,7 +11,7 @@ var abortCurrentWpsRequest = function() {
 var crop = function(bbox) {
   if(currentWpsRequest) { abortCurrentWpsRequest() }
 
-  var wpsRequest = prepareWpsRequest('crop', {
+  var wpsRequest = renderTemplate('crop', {
     points: bboxToPoints(bbox).map(function(p) {
       return `${p[0]} ${p[1]}`
     }).join(', ')
@@ -49,7 +49,7 @@ var crop = function(bbox) {
 var statistics = function(bbox) {
   if(currentWpsRequest) { abortCurrentWpsRequest() }
 
-  wpsRequest = prepareWpsRequest('statistics', {
+  wpsRequest = renderTemplate('statistics', {
     points: bboxToPoints(bbox).map(function(p) {
       return `[${p.join(', ')}]`
     }).join(', ')
@@ -92,15 +92,6 @@ var bboxToPoints = function(bbox) {
     [bbox[0], bbox[1]],
     [bbox[0], bbox[3]]
   ]
-}
-
-var prepareWpsRequest = function(process, data) {
-  var template = $(`#${process}-template`).html()
-
-  // Caches the template for subsequent requests to the same WPS
-  Mustache.parse(template)
-
-  return Mustache.render(template, data)
 }
 
 // Extract the filename from Content-Disposition header

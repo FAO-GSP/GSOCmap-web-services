@@ -154,9 +154,25 @@
                 Click the version of the map that you want to download.
               </p>
 
-              <div class="table-responsive">
-                <div class="files table table-sm table-hover table-striped table-responsive"></div>
-              </div>
+              <script type="text/html" id="download-template">
+                {{#files}}
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <a href="/GSOCmap/downloads/{{name}}" target="_blank">
+                        {{name}}
+                      </a>
+                    </div>
+                    <div class="col-sm-3 text-right">{{size}}</div>
+                    <div class="col-sm">{{mtime}}</div>
+                  </div>
+                {{/files}}
+
+                {{^files}}
+                  There isn't any file for download currently.
+                {{/files}}
+              </script>
+
+              <div class="files"></div>
             </div>
           </div>
 
