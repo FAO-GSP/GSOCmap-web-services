@@ -15,9 +15,10 @@ var tiles = new ol.layer.Tile({
     url: '/geoserver/gwc/service',
     ratio: 2,
     params: {
-      // It has to be uppercase for WFS
+      // It has to be uppercase strings for WFS
       'LAYERS': 'GSOC:NE2',
-      format: 'image/jpeg'
+      'FORMAT': 'image/jpeg',
+      'TILED': true
     }
   })
 })
@@ -30,10 +31,10 @@ var gsocData = new ol.layer.Tile({
     url: '/geoserver/gwc/service',
     ratio: 2,
     params: {
-      // It has to be uppercase for WFS
+      // It has to be uppercase strings for WFS
       'LAYERS': 'GSOC:GSOCmapV1.2.0',
-      tiled: true,
-      format: 'image/png8'
+      'FORMAT': 'image/png8',
+      'TILED': true
     }
   })
 })
