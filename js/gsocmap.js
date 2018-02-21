@@ -32,7 +32,7 @@ var gsocData = new ol.layer.Tile({
     ratio: 2,
     params: {
       // It has to be uppercase strings for WFS
-      'LAYERS': 'GSOC:GSOCmapV1.2.0',
+      'LAYERS': 'GSOC:GSOCmapV120',
       'FORMAT': 'image/png8',
       'TILED': true
     }
